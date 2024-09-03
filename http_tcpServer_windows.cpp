@@ -92,5 +92,27 @@ namespace http
             exitWithError(ss.str());
         };
     }
+    void TcpServer ::sendResponse()
+    {
+        int bytesSent;
+        long totalBytesSent = 0;
+        while (totalBytesSent < m_serverMessage.size())
+        {
+            bytesSent = send(m_new_socket, m_serverMessage.c_str(), m_serverMessage.size(), 0);
+            if (bytesSent < 0)
+            {
+                break;
+            }
+            totalBytesSent += bytesSent;
+        }
+        if (totalBytesSent = m_serverMessage.size())
+        {
+            log("_____SERVER RESPONSE SENT TO CLIENT__________");
+        }
+        else
+        {
+            log("_____ERROR IN SENDING RESPONSE TO CLIENT______");
+        }
+    }
 
 } // namespace http
